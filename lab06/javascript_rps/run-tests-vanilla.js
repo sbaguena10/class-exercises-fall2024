@@ -10,15 +10,13 @@ function testHelloWorld() {
 
 function testPaperBeatsRock() {
     return assertPrint(
-        rps("rock", "paper") === "Paper wins!",
-        "paper beats rock",
+        rps("rock", "paper") === "Paper wins!", "paper beats rock",
     );
 }
 
 function testPaperBeatsRockCommutes() {
     return assertPrint(
-        rps("paper", "rock") === "Paper wins!",
-        "paper beats rock (flipped)",
+        rps("paper", "rock") === "Paper wins!", "paper beats rock",
     );
 }
 
@@ -26,38 +24,30 @@ function testPaperBeatsRockCommutes() {
 
 function testRockBeatsScissors() {
     return assertPrint(
-        rps("rock", "scissors") === "Rock wins!",
-        "rock beats scissors",
+        rps("rock", "scissors") === "Rock wins!", "rock beats scissors",
     );
 }
 
 function testScissorsBeatsPaper() {
     return assertPrint(
-        rps("scissors", "paper") === "Scissors wins!",
-        "scissors beats paper",
+        rps("scissors", "paper") === "Scissors wins!", "scissors beats paper",
     );
 }
 
 function testTieWithRock() {
-    return assertPrint(rps("rock", "rock") === "Tie!", "rock ties with rock");
+    return assertPrint(rps("rock", "rock") === "It's a tie!", "rock ties with rock");
 }
 
 function testTieWithPaper() {
-    return assertPrint(
-        rps("paper", "paper") === "Tie!",
-        "paper ties with paper",
-    );
+    return assertPrint(rps("paper", "paper") === "It's a tie!", "paper ties with paper");
 }
 
 function testTieWithScissors() {
-    return assertPrint(
-        rps("scissors", "scissors") === "Tie!",
-        "scissors ties with scissors",
-    );
+    return assertPrint(rps("scissors", "scissors") === "It's a tie!", "scissors ties with scissors");
 }
 
 function testInvalidInput() {
-    return assertPrint(rps("rock", "car") === "Invalid", "invalid input'");
+    return assertPrint(rps("rock", "car") === "Invalid");
 }
 
 // Once you have defined each test function, don't forget to

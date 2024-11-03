@@ -18,7 +18,7 @@ export function rps(hand1, hand2) {
     }
 
     if (hand1 === hand2) {
-        return "Tie!";
+        return "It's a tie!"; 
     }
 
     if (hand1 === "rock" && hand2 === "paper") {
