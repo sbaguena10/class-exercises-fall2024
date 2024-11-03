@@ -60,6 +60,25 @@ describe("Rock Paper Scissors Tests", function () {
         assert.equal(rps("paper", "rock"), "Paper wins!");
     });
 
-    // add your tests here
-    // (but still within this describe function)
+    it("knows that rock beats scissors", function () {
+        assert.equal(rps("rock", "scissors"), "Rock wins!");
+        assert.equal(rps("scissors", "rock"), "Rock wins!");
+    });
+
+    it("knows that scissors beat paper", function () {
+        assert.equal(rps("scissors", "paper"), "Scissors wins!");
+        assert.equal(rps("paper", "scissors"), "Scissors wins!");
+    });
+
+    it("returns 'Tie!' if both choices are the same valid choice", function () {
+        assert.equal(rps("rock", "rock"), "Tie!");
+        assert.equal(rps("paper", "paper"), "Tie!");
+        assert.equal(rps("scissors", "scissors"), "Tie!");
+    });
+
+    it("returns 'Invalid' if any input is not rock, paper, or scissors", function () {
+        assert.equal(rps("rock", "car"), "Invalid");
+        assert.equal(rps("car", "paper"), "Invalid");
+        assert.equal(rps("car", "rock"), "Invalid");
+    });
 });

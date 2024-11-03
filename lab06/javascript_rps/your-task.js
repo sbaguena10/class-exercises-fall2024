@@ -11,10 +11,27 @@ Implement the following logic and return the corresponding message (exactly as i
 * If anything other than rock, paper, or scissors are passed in, return "Invalid"
 */
 export function rps(hand1, hand2) {
-    // finish this code:
+    const validInput = ["rock", "paper", "scissors"];
+
+    if (!validInput.includes(hand1) || !validInput.includes(hand2)) {
+        return "Invalid";
+    }
+
+    if (hand1 === hand2) {
+        return "Tie!";
+    }
+
     if (hand1 === "rock" && hand2 === "paper") {
         return "Paper wins!";
-    } else {
-        return "Invalid";
+    } else if (hand1 === "paper" && hand2 === "scissors") {
+        return "Scissors wins!";
+    } else if (hand1 === "scissors" && hand2 === "rock") {
+        return "Rock wins!";
+    } else if (hand1 === "rock" && hand2 === "scissors") {
+        return "Rock wins!";
+    } else if (hand1 === "paper" && hand2 === "rock") {
+        return "Paper wins!";
+    } else if (hand1 === "scissors" && hand2 === "paper") {
+        return "Scissors wins!";
     }
 }
