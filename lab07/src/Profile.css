@@ -1,0 +1,21 @@
+section {
+    background-color: #f0f0f0;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+h2 {
+    color: #333;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    font-size: 14px;
+    color: #666;
+}
+
