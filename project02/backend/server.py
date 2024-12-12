@@ -35,8 +35,9 @@ async def startup():
 # Task 1
 @app.get("/api/departments/", response_model=List[str])
 async def get_department_codes(db: AsyncSession = Depends(get_db)):
-    # replace with your code...
-    return []
+    result = await db.execute(select(models.Course.department).distinct())
+    department_codes = result.scalars().all()  # Extract the department codes as a list
+    return department_codes
 
 
 # Task 2
@@ -45,8 +46,13 @@ async def get_department_codes(db: AsyncSession = Depends(get_db)):
 async def get_users_by_username(
     username: str, db: AsyncSession = Depends(get_db)
 ):
-    # replace with your code...
-    return {}
+    result = await db.execute(select(models.User).where(models.User.username == username))
+    user = result.scalar_one_or_none()
+
+    if user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return user
 
 
 # Task 3
@@ -56,29 +62,26 @@ async def get_courses(
     instructor: str = Query(None),
     department: str = Query(None),
     hours: int = Query(None),
+    category: str = Query(None),
+    open_only: bool = Query(False),
+    days: str = Query(None),
     db: AsyncSession = Depends(get_db),
 ):
 
-    # base query to "courses" table that also asks SQLAlchemy
-    # to join to the "instructors" and "locations" table.
     query = select(models.Course).options(
         selectinload(models.Course.instructors),
         selectinload(models.Course.location),
     )
 
-    # includes a "title" filter if specified:
     if title:
         query = query.where(models.Course.title.ilike(f"%{title}%"))
 
-    # includes a "department" filter if specified:
     if department:
         query = query.where(models.Course.department == department)
 
-    # includes an "hours" filter if specified:
     if hours:
         query = query.where(models.Course.hours == hours)
 
-    # includes an "instructors" filter if specified:
     if instructor:
         query = query.join(models.Course.instructors).where(
             or_(
@@ -87,12 +90,21 @@ async def get_courses(
             )
         )
 
+    if category:
+        query = query.where(models.Course.category.ilike(f"%{category}%"))
+
+    if open_only:
+        query = query.where(models.Course.is_open == True)
+
+    if days:
+        for day in days:
+            query = query.where(models.Course.days.contains(day))
+
     result = await db.execute(
         query.order_by(models.Course.department, models.Course.code)
     )
     courses = result.scalars().all()
     return courses
-
 
 @app.delete(
     "/api/schedules/{schedule_id}/courses/{course_crn}",
