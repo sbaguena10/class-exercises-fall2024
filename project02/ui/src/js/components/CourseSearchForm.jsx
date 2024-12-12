@@ -79,12 +79,14 @@ export default function CourseSearchForm({ fetchCourses }) {
                                 You will need to use the useEffect and useState React 
                                 functions. 
                             */}
-                            <Select.Option key="CSCI" value="CSCI">
-                                CSCI
-                            </Select.Option>
-                            <Select.Option key="NM" value="NM">
-                                NM
-                            </Select.Option>
+                            {departments.map((department) => (
+                                <Select.Option
+                                    key={department.code}
+                                    value={department.code}
+                                >
+                                    {department.name}
+                                </Select.Option>
+                            ))}
                         </Select>
                     </Form.Item>
 
